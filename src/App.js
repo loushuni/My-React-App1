@@ -9,7 +9,7 @@ class App extends Component {
         <h1>Hi, Shuni</h1>
       </div>
     );
-  }
+   }
 }
 
 export default App;
