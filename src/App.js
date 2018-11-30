@@ -9,7 +9,8 @@ class App extends Component {
       { name: 'Dafei', age: 20 },
       { name: 'Bao', age: 20 }
     ],
-    otherPersons: 'some others'
+    otherPersons: 'some others',
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -23,6 +24,7 @@ class App extends Component {
       ]
     })
   }
+
   nameChangedHandler = (event) => {
     this.setState({
       persons: [
@@ -32,22 +34,39 @@ class App extends Component {
       ]
     })
   }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons : !doesShow});
+  }
+
   render() {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
+
     return (
       <div className="App">
         <h1>Hi, Shuni</h1>
-        <button onClick={() => this.switchNameHandler('pipi')}>Switch Name</button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age} />
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'lala')}
-          changed={this.nameChangedHandler}/>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}>My hobbies: Racing</Person>
+        <button style={style} onClick={this.togglePersonsHandler}>Toggle Person</button>
+        {this.state.showPersons ?
+          <div>
+            <Person
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age} />
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler.bind(this, 'lala')}
+              changed={this.nameChangedHandler} />
+            <Person
+              name={this.state.persons[2].name}
+              age={this.state.persons[2].age}>My hobbies: Racing</Person>
+          </div> : null}
       </div>
     );
   }
