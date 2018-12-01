@@ -13,14 +13,21 @@ class App extends Component {
     showPersons: false
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Shuni', age: 20 },
-        { name: event.target.value, age: 20 },
-        { name: 'Dafei', age: 20 }
-      ]
-    })
+  nameChangedHandler = (event, id) => {
+    //找到要修改的person的id
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });  
+    //找到要修改的person。person是js object，要copy一份person，update immutably
+    const person = {...this.state.persons[personIndex]};
+    //把person的name修改掉
+    person.name = event.target.value;
+    //copy一份persons
+    const persons = [...this.state.persons];
+    //在persons中把要修改的那个person更改
+    persons[personIndex] = person;
+    //使得state中persons等于修改好的persons copy
+    this.setState({persons: persons})
   }
 
   deletePersonHandler = (personIndex) => {
@@ -54,7 +61,8 @@ class App extends Component {
               name={person.name} 
               age={person.age} 
               click={() => this.deletePersonHandler(index)} 
-              key={person.id} />
+              key={person.id} 
+              changed={(event) => this.nameChangedHandler(event, person.id)} />
           })}
         </div>
       );
