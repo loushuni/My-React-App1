@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person.js';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
     persons: [
-      {id:'1', name: 'Shuni', age: 20 },
-      {id:'2', name: 'Dafei', age: 20 },
-      {id:'3', name: 'Bao', age: 20 }
+      { id: '1', name: 'Shuni', age: 20 },
+      { id: '2', name: 'Dafei', age: 20 },
+      { id: '3', name: 'Bao', age: 20 }
     ],
     otherPersons: 'some others',
     showPersons: false
@@ -17,9 +18,9 @@ class App extends Component {
     //找到要修改的person的id
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
-    });  
+    });
     //找到要修改的person。person是js object，要copy一份person，update immutably
-    const person = {...this.state.persons[personIndex]};
+    const person = { ...this.state.persons[personIndex] };
     //把person的name修改掉
     person.name = event.target.value;
     //copy一份persons
@@ -27,14 +28,14 @@ class App extends Component {
     //在persons中把要修改的那个person更改
     persons[personIndex] = person;
     //使得state中persons等于修改好的persons copy
-    this.setState({persons: persons})
+    this.setState({ persons: persons })
   }
 
   deletePersonHandler = (personIndex) => {
     //const persons = this.state.persons.slice(); ES5 syntax
     const persons = [...this.state.persons];  // ES6 syntax
     persons.splice(personIndex, 1);
-    this.setState({persons: persons});
+    this.setState({ persons: persons });
   }
 
   togglePersonsHandler = () => {
@@ -58,12 +59,14 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person 
-              name={person.name} 
-              age={person.age} 
-              click={() => this.deletePersonHandler(index)} 
-              key={person.id} 
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
+            return <ErrorBoundary key={person.id}>
+              <Person
+                name={person.name}
+                age={person.age}
+                click={() => this.deletePersonHandler(index)}
+                changed={(event) => this.nameChangedHandler(event, person.id)}
+              />
+            </ ErrorBoundary>
           })}
         </div>
       );
