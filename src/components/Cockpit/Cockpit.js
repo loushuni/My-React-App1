@@ -3,7 +3,6 @@ import './Cockpit.css';
 
 const cockpit = (props) => {
     
-
     let classes = [];
     if (props.persons.length <= 2) {
         classes.push('red');  // classes = ['red']
@@ -19,6 +18,5 @@ const cockpit = (props) => {
         </div>
     );
 };
-
 
 export default cockpit;
