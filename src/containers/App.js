@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-//import Person from '../components/Person/Person.js';
-import Persons from '../components/Persons/Persons'
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -67,11 +67,13 @@ class App extends Component {
       style.backgroundColor = 'red';
     }
 
-
-
     return (
       <div className="App">
-
+        <Cockpit
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+          style={style}
+        />
         {persons}
       </div>
     );
