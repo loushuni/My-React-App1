@@ -4,6 +4,19 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] Constructor', props);
+  }
+
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
   state = {
     persons: [
       { id: '1', name: 'Shuni', age: 20 },
@@ -44,6 +57,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     const style = {
       backgroundColor: 'green',
       color: 'white',
