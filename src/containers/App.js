@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 class App extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class App extends Component {
   componentDidUpdate() {
     console.log('Update [App.js] componentDidUpdate');
   }
-  
+
   state = {
     persons: [
       { id: '1', name: 'Shuni', age: 20 },
@@ -95,14 +96,14 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <WithClass classes="App">
         <Cockpit
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}
           style={style}
         />
         {persons}
-      </div>
+      </WithClass>
     );
   }
 }
