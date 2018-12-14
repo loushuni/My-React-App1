@@ -14,11 +14,10 @@ class Person extends Component {
     }
 
     componentDidMount() {
-        console.log('[Person.js] componentDidMount');
-        if (this.props.position === 0) {
-            this.inputElement.current.focus();
-        } 
+        console.log('[Person.js] componentDidMount'); 
+        this.inputElement.current.focus();
     }
+
     render() {
         console.log('[Person.js] render');
         return (
